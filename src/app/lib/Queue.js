@@ -20,20 +20,10 @@ export default {
     return this.queues.forEach(queue => {
       queue.bull.process(queue.handle);
 
-      mailQueue.bull.on('failed', (job, err) => {
+      queue.bull.on('failed', (job, err) => {
            console.log('Job failed', queue.key, job.data)
            console.log(err);
          });
     })
   }
 };
-// import RegistrationMail from '../jobs/RegistrationMail';
-
-// const mailQueue = new Queue(RegistrationMail.key, redisConfig);
-
-// mailQueue.on('failed', (job, err) => {
-//   console.log('Job failed', job.name, job.data)
-//   console.log(err)
-// });
-
-// export default mailQueue;
